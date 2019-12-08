@@ -73,7 +73,7 @@ class InvoiceController extends Controller
         ]);
 
         if ($validator->fails())
-            return response()->json($validator->errors()->toJson(), 422);
+            return response()->json($validator->errors(), 422);
 
         $date = date("d M Y", $data['date']);
         $due_date = date("d M Y", $data['due_date']);
@@ -132,7 +132,7 @@ class InvoiceController extends Controller
 
 
 		if (!count($response)) {
-            return response($doc, 201);
+            return response($doc, 201)->header('Content-Type', 'application/pdf');
         } else {
 			return response($response, 201);
 		}
